@@ -169,7 +169,7 @@ proc cmpIgnoreStyle*(a, b: string): int {.noSideEffect,
 
 {.pop.}
 
-proc strip*(s: string, leading = true, trailing = true, chars: set[char] = Whitespace): string 
+proc strip*(s: string, leading = true, trailing = true, chars: set[char] = Whitespace): string
   {.noSideEffect, rtl, extern: "nsuStrip".} =
   ## Strips `chars` from `s` and returns the resulting string.
   ##
@@ -1392,6 +1392,14 @@ proc format*(formatstr: string, a: varargs[string, `$`]): string {.noSideEffect,
   ## auto stringification.
   result = newStringOfCap(formatstr.len + a.len)
   addf(result, formatstr, a)
+
+proc reverse*(s: string): string {.noSideEffect.} =
+  ## Reverse a string
+  result = newString(s.len)
+  let c = int((s.len-1)/2)
+  for i in 0..c:
+    result[i] = s[s.len - i - 1]
+    result[s.len - i - 1] = s[i]
 
 {.pop.}
 

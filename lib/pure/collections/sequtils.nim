@@ -451,6 +451,14 @@ template newSeqWith*(len: int, init: expr): expr =
     result[i] = init
   result
 
+proc reverse[T]*(s: seq[T]): seq[T] =
+  ## Return an seq with elements in reverse order
+  result = newSeq[T](s.len)
+  let c = int((s.len-1)/2)
+  for i in 0..c:
+    result[i] = s[s.len - i - 1]
+    result[s.len - i - 1] = s[i]
+
 when isMainModule:
   import strutils
   block: # concat test
